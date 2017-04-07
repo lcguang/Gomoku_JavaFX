@@ -17,6 +17,8 @@ import java.util.Random;
 
 public class Board implements EventHandler<ActionEvent> {
 
+    private int player_ = 0;
+
     public void handle(ActionEvent e) {
         Stage secondary_stage = new Stage();
         secondary_stage.setTitle("Gomoku");
@@ -26,14 +28,19 @@ public class Board implements EventHandler<ActionEvent> {
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col ++) {
                 StackPane square = new StackPane();
-                String color ;
+                String color;
                 if ((row + col) % 2 == 0) {
-                    color = "white";
+                    color = "#cd8038"; //Color.rgb(205, 128, 56);
                 } else {
-                    color = "black";
+                    color = "#ffc890"; //Color.rgb(255, 200, 144);
                 }
                 square.setStyle("-fx-background-color: "+color+";");
+                //Chess chess = new Chess(row, col, root);
+                //square.setOnMouseClicked(chess);
                 root.add(square, col, row);
+                Chess chess = new Chess(row, col, root, secondary_stage, player_);
+                square.setOnMouseClicked(chess);
+                player_ = 1 - player_;
             }
         }
         for (int i = 0; i < size; i++) {
