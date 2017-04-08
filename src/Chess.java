@@ -28,7 +28,7 @@ public class Chess implements EventHandler<MouseEvent> {
 
     public void handle(MouseEvent e) {
         Circle circle = new Circle();
-        circle.setRadius(10);
+        circle.setRadius(15);
         if (player_ == 0) {
             circle.setFill(Color.BLACK);
         } else {
@@ -36,7 +36,7 @@ public class Chess implements EventHandler<MouseEvent> {
         }
 
         root_.add(circle, col_, row_);
-        Scene scene = new Scene(root_, 500, 500);
+        Scene scene = new Scene(root_, 450, 450);
         stage_.setScene(scene);
         stage_.show();
     }
