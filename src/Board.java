@@ -17,8 +17,6 @@ import java.util.Random;
 
 public class Board implements EventHandler<ActionEvent> {
 
-    private int player_ = 0;
-
     public void handle(ActionEvent e) {
         Stage secondary_stage = new Stage();
         secondary_stage.setTitle("Gomoku");
@@ -36,11 +34,11 @@ public class Board implements EventHandler<ActionEvent> {
                     square.setFill(Color.rgb(255, 200, 144));
                 }
                 root.add(square, col, row);
-                Chess chess = new Chess(row, col, root, secondary_stage, player_);
-                square.setOnMouseClicked(chess);
-                player_ = 1 - player_;
             }
         }
+
+        Chess chess = new Chess(root, secondary_stage);
+        root.setOnMouseClicked(chess);
 
         secondary_stage.setScene(new Scene(root, 450, 450));
         secondary_stage.show();
