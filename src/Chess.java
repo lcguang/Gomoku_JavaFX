@@ -4,7 +4,6 @@
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -45,6 +44,12 @@ public class Chess implements EventHandler<MouseEvent> {
         Integer row_index = new Double(e.getY() / 30).intValue();
         Integer col_index = new Double(e.getX() / 30).intValue();
 
+        // avoid chess falling at a taken position
+        if (chessboard_[row_index][col_index] != -1) {
+            return;
+        }
+
+        // draw chess
         Circle circle = new Circle();
         circle.setRadius(15);
         if (player_ == 0) {
