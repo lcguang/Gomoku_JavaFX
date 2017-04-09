@@ -12,15 +12,20 @@ public class AI {
     private int[][] ai_score_;
     private int[] player_win_;
     private int[] ai_win_;
-    private Map<Position, Set<Integer>> pos_win_map_;
+    private Map<Integer, HashSet<Integer>> pos_win_map_;
     private int win_count_;
 
     public AI() {
         chessboard_ = new int[15][15];
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                chessboard_[i][j] = -1;
+            }
+        }
         win_matrix_ = new boolean[15][15][572];
         player_score_ = new int[15][15];
         ai_score_ = new int[15][15];
-        pos_win_map_ = new HashMap<Position, Set<Integer>>();
+        pos_win_map_ = new HashMap<Integer, HashSet<Integer>>();
         initWinMatrix();
         player_win_ = new int[win_count_];
         ai_win_ = new int[win_count_];
@@ -33,11 +38,12 @@ public class AI {
             for (int j = 0; j < 11; j++) {
                 for (int k = 0; k < 5; k++) {
                     win_matrix_[i][j + k][win_count_] = true;
-                    Position pos = new Position(i, j + k);
+                    Integer pos = new Integer(i * 15 + (j + k));
                     if (!pos_win_map_.containsKey(pos)) {
                         pos_win_map_.put(pos, new HashSet<Integer>());
                     }
                     pos_win_map_.get(pos).add(win_count_);
+
                 }
                 win_count_++;
             }
@@ -46,7 +52,7 @@ public class AI {
             for (int j = 0; j < 15; j++) {
                 for (int k = 0; k < 5; k++) {
                     win_matrix_[i + k][j][win_count_] = true;
-                    Position pos = new Position(i + k, j);
+                    Integer pos = new Integer((i + k) * 15 + j);
                     if (!pos_win_map_.containsKey(pos)) {
                         pos_win_map_.put(pos, new HashSet<Integer>());
                     }
@@ -59,7 +65,7 @@ public class AI {
             for (int j = 0; j < 11; j++) {
                 for (int k = 0; k < 5; k++) {
                     win_matrix_[i + k][j + k][win_count_] = true;
-                    Position pos = new Position(i + k, j + k);
+                    Integer pos = new Integer((i + k) * 15 + (j + k));
                     if (!pos_win_map_.containsKey(pos)) {
                         pos_win_map_.put(pos, new HashSet<Integer>());
                     }
@@ -72,7 +78,7 @@ public class AI {
             for (int j = 14; j > 3; j--) {
                 for (int k = 0; k < 5; k++) {
                     win_matrix_[i + k][j - k][win_count_] = true;
-                    Position pos = new Position(i + k, j - k);
+                    Integer pos = new Integer((i + k) * 15 + (j - k));
                     if (!pos_win_map_.containsKey(pos)) {
                         pos_win_map_.put(pos, new HashSet<Integer>());
                     }
@@ -85,7 +91,7 @@ public class AI {
 
     public void updateBoard(int x, int y, int value) {
         chessboard_[x][y] = value;
-        Position pos = new Position(x, y);
+        Integer pos = new Integer(x * 15 + y);
         Iterator<Integer> it = pos_win_map_.get(pos).iterator();
         while (it.hasNext()) {
             if (value == 1) player_win_[it.next().intValue()]++;
@@ -93,12 +99,12 @@ public class AI {
         }
     }
 
-    public Position calculatePosition() {
+    public int calculatePosition() {
         int max = 0;
         int x = 0, y = 0;
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                if (0 == chessboard_[i][j]) {
+                if (-1 == chessboard_[i][j]) {
                     for (int k = 0; k < win_count_; k++) {
                         if (win_matrix_[i][j][k]) {
                             if (1 == player_win_[k]) {
@@ -144,7 +150,6 @@ public class AI {
                 }
             }
         }
-        Position pos = new Position(x, y);
-        return pos;
+        return (x * 15 + y);
     }
 }

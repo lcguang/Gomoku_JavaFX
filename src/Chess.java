@@ -19,25 +19,23 @@ public class Chess implements EventHandler<MouseEvent> {
 
     private GridPane root_;
     private Stage stage_;
-    private int player_;
-
-    private List<Position> player_0_;
-    private List<Position> player_1_;
+    private int player_; // people for 0, ai for 1
 
     private int[][] chessboard_;
+
+    private AI ai;
 
     public Chess(GridPane root, Stage stage) {
         root_ = root;
         stage_ = stage;
         player_ = 0;
-        player_0_ = new ArrayList<Position>();
-        player_1_ = new ArrayList<Position>();
         chessboard_ = new int[15][15];
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 chessboard_[i][j] = -1;
             }
         }
+        ai = new AI();
     }
 
     public void handle(MouseEvent e) {
@@ -54,15 +52,12 @@ public class Chess implements EventHandler<MouseEvent> {
         circle.setRadius(15);
         if (player_ == 0) {
             circle.setFill(Color.BLACK);
-            player_0_.add(new Position(row_index, col_index));
         } else {
             circle.setFill(Color.WHITE);
-            player_1_.add(new Position(row_index, col_index));
         }
 
         chessboard_[row_index][col_index] = player_;
-
-        player_ = 1 - player_;
+        ai.updateBoard(row_index, col_index, player_);
 
         if (checkWin(row_index, col_index)) {
             Stage win_stage = new Stage();
@@ -82,7 +77,44 @@ public class Chess implements EventHandler<MouseEvent> {
             win_stage.show();
         }
 
+        player_ = 1 - player_;
+
+        int pos = ai.calculatePosition();
+        int ai_row_index = pos / 15;
+        int ai_col_index = pos % 15;
+        Circle circle_ai = new Circle();
+        circle_ai.setRadius(15);
+        if (player_ == 0) {
+            circle_ai.setFill(Color.BLACK);
+        } else {
+            circle_ai.setFill(Color.WHITE);
+        }
+
+        chessboard_[ai_row_index][ai_col_index] = player_;
+        ai.updateBoard(ai_row_index, ai_col_index, player_);
+
+        if (checkWin(ai_row_index, ai_col_index)) {
+            Stage win_stage = new Stage();
+            win_stage.setTitle("HaHa!");
+            Button win_button = new Button();
+            win_button.setText("AI Win!");
+            win_button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    win_stage.close();
+                    stage_.close();
+                }
+            });
+            StackPane pane = new StackPane();
+            pane.getChildren().add(win_button);
+            win_stage.setScene(new Scene(pane, 200, 100));
+            win_stage.show();
+        }
+
+        player_ = 1 - player_;
+
         root_.add(circle, col_index, row_index);
+        root_.add(circle_ai, ai_col_index, ai_row_index);
         stage_.setScene(new Scene(root_, 450, 450));
         stage_.show();
     }
