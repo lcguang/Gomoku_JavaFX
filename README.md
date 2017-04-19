@@ -1,2 +1,2 @@
 # Gomoku_JavaFX
-A Gomoku game on JavaFX platform aaa
+A Gomoku game on JavaFX platform

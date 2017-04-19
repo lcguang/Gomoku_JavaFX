@@ -1,5 +1,7 @@
+package GomokuClient;
+
 /**
- * Created by chenguangliu on 4/6/17.
+ * Created by chenguangliu on 4/18/17.
  */
 
 import javafx.event.ActionEvent;
@@ -126,11 +128,11 @@ public class Chess implements EventHandler<MouseEvent> {
     private boolean direction1(int x, int y) {
         for (int i = 0; i < 5; i++) {
             if (y - i >= 0 &&
-                y + 4 - i <= 0xF &&
-                chessboard_[x][y - i] == chessboard_[x][y + 1 - i] &&
-                chessboard_[x][y - i] == chessboard_[x][y + 2 - i] &&
-                chessboard_[x][y - i] == chessboard_[x][y + 3 - i] &&
-                chessboard_[x][y - i] == chessboard_[x][y + 4 - i])
+                    y + 4 - i <= 0xF &&
+                    chessboard_[x][y - i] == chessboard_[x][y + 1 - i] &&
+                    chessboard_[x][y - i] == chessboard_[x][y + 2 - i] &&
+                    chessboard_[x][y - i] == chessboard_[x][y + 3 - i] &&
+                    chessboard_[x][y - i] == chessboard_[x][y + 4 - i])
                 return true;
         }
         return false;
@@ -139,11 +141,11 @@ public class Chess implements EventHandler<MouseEvent> {
     private boolean direction2(int x, int y) {
         for (int i = 0; i < 5; i++) {
             if (x - i >= 0 &&
-                x + 4 - i <= 0xF &&
-                chessboard_[x - i][y] == chessboard_[x + 1 - i][y] &&
-                chessboard_[x - i][y] == chessboard_[x + 2 - i][y] &&
-                chessboard_[x - i][y] == chessboard_[x + 3 - i][y] &&
-                chessboard_[x - i][y] == chessboard_[x + 4 - i][y])
+                    x + 4 - i <= 0xF &&
+                    chessboard_[x - i][y] == chessboard_[x + 1 - i][y] &&
+                    chessboard_[x - i][y] == chessboard_[x + 2 - i][y] &&
+                    chessboard_[x - i][y] == chessboard_[x + 3 - i][y] &&
+                    chessboard_[x - i][y] == chessboard_[x + 4 - i][y])
                 return true;
         }
         return false;
@@ -152,13 +154,13 @@ public class Chess implements EventHandler<MouseEvent> {
     private boolean direction3(int x, int y) {
         for (int i = 0; i < 5; i++) {
             if (x - i >= 0 &&
-                y - i >= 0 &&
-                x + 4 - i <= 0xF &&
-                y + 4 - i <= 0xF &&
-                chessboard_[x - i][y - i] == chessboard_[x + 1 - i][y + 1 - i] &&
-                chessboard_[x - i][y - i] == chessboard_[x + 2 - i][y + 2 - i] &&
-                chessboard_[x - i][y - i] == chessboard_[x + 3 - i][y + 3 - i] &&
-                chessboard_[x - i][y - i] == chessboard_[x + 4 - i][y + 4 - i])
+                    y - i >= 0 &&
+                    x + 4 - i <= 0xF &&
+                    y + 4 - i <= 0xF &&
+                    chessboard_[x - i][y - i] == chessboard_[x + 1 - i][y + 1 - i] &&
+                    chessboard_[x - i][y - i] == chessboard_[x + 2 - i][y + 2 - i] &&
+                    chessboard_[x - i][y - i] == chessboard_[x + 3 - i][y + 3 - i] &&
+                    chessboard_[x - i][y - i] == chessboard_[x + 4 - i][y + 4 - i])
                 return true;
         }
         return false;
@@ -167,13 +169,13 @@ public class Chess implements EventHandler<MouseEvent> {
     private boolean direction4(int x, int y) {
         for (int i = 0; i < 5; i++) {
             if (x + i <= 0xF &&
-                y - i >= 0 &&
-                x - 4 + i >= 0 &&
-                y + 4 - i <= 0xF &&
-                chessboard_[x + i][y - i] == chessboard_[x - 1 + i][y + 1 - i] &&
-                chessboard_[x + i][y - i] == chessboard_[x - 2 + i][y + 2 - i] &&
-                chessboard_[x + i][y - i] == chessboard_[x - 3 + i][y + 3 - i] &&
-                chessboard_[x + i][y - i] == chessboard_[x - 4 + i][y + 4 - i])
+                    y - i >= 0 &&
+                    x - 4 + i >= 0 &&
+                    y + 4 - i <= 0xF &&
+                    chessboard_[x + i][y - i] == chessboard_[x - 1 + i][y + 1 - i] &&
+                    chessboard_[x + i][y - i] == chessboard_[x - 2 + i][y + 2 - i] &&
+                    chessboard_[x + i][y - i] == chessboard_[x - 3 + i][y + 3 - i] &&
+                    chessboard_[x + i][y - i] == chessboard_[x - 4 + i][y + 4 - i])
                 return true;
         }
         return false;

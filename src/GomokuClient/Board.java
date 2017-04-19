@@ -1,5 +1,7 @@
+package GomokuClient;
+
 /**
- * Created by chenguangliu on 4/4/17.
+ * Created by chenguangliu on 4/18/17.
  */
 
 import javafx.event.ActionEvent;
