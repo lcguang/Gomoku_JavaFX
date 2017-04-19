@@ -25,7 +25,7 @@ public class Chess implements EventHandler<MouseEvent> {
 
     private int[][] chessboard_;
 
-    private AI ai;
+    private AI ai_;
 
     public Chess(GridPane root, Stage stage) {
         root_ = root;
@@ -37,7 +37,7 @@ public class Chess implements EventHandler<MouseEvent> {
                 chessboard_[i][j] = -1;
             }
         }
-        ai = new AI();
+        ai_ = new AI();
     }
 
     public void handle(MouseEvent e) {
@@ -59,7 +59,7 @@ public class Chess implements EventHandler<MouseEvent> {
         }
 
         chessboard_[row_index][col_index] = player_;
-        ai.updateBoard(row_index, col_index, player_);
+        ai_.updateBoard(row_index, col_index, player_);
 
         if (checkWin(row_index, col_index)) {
             Stage win_stage = new Stage();
@@ -81,7 +81,7 @@ public class Chess implements EventHandler<MouseEvent> {
 
         player_ = 1 - player_;
 
-        int pos = ai.calculatePosition();
+        int pos = ai_.calculatePosition();
         int ai_row_index = pos / 15;
         int ai_col_index = pos % 15;
         Circle circle_ai = new Circle();
@@ -93,7 +93,7 @@ public class Chess implements EventHandler<MouseEvent> {
         }
 
         chessboard_[ai_row_index][ai_col_index] = player_;
-        ai.updateBoard(ai_row_index, ai_col_index, player_);
+        ai_.updateBoard(ai_row_index, ai_col_index, player_);
 
         if (checkWin(ai_row_index, ai_col_index)) {
             Stage win_stage = new Stage();
